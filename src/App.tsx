@@ -1,3 +1,9 @@
+import { CustomForm } from './components'
+
 export default function App() {
-  return <div className='text-8xl'>App</div>
+  return (
+    <div className=''>
+      <CustomForm />
+    </div>
+  )
 }
