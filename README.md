@@ -1,107 +1,251 @@
-# Form and Validations - React - TypeScript - React Hook Form - Zod
+# Project README
 
-This project demonstrates how to implement forms in React using **React Hook Form** for efficient form handling, **Zod** for data validation, and **TypeScript** for strong typing and robust development. This stack is highly sought after in the professional environment due to its ability to create scalable, maintainable, and professional-grade forms.
+## Project Overview
 
-## Benefits of This Stack
+This project showcases the implementation of a **custom form** component using React, React Hook Form, Zod, and TailwindCSS. Forms are a fundamental aspect of web development, commonly used for user authentication, data collection, and e-commerce. The ability to create highly interactive and validated forms is essential for delivering seamless user experiences and ensuring data accuracy across various industries.
 
-1. **React Hook Form**: Efficiently handles forms with minimal re-renders, improving performance.
-2. **Zod**: Provides a declarative and flexible validation system, seamlessly integrating with TypeScript.
-3. **TypeScript**: Enhances code quality by catching errors during development and enforcing strict types.
-4. **Scalability**: This stack is ideal for projects of any size, from small applications to complex enterprise systems.
+---
 
-## Installation
+## Industry Importance
 
-To get started, install the required dependencies:
+By leveraging tools like **React Hook Form**, **Zod**, and **TailwindCSS**, developers can create scalable and maintainable forms with improved performance. Here’s why these tools are valuable:
 
-```bash
-# Install React Hook Form
-pnpm i react-hook-form
+- **React Hook Form**: Efficient form state management with minimal re-renders.
+- **Zod**: Schema-based validation to enforce data integrity.
+- **TailwindCSS**: Simplifies styling with utility-first classes for rapid UI development.
 
-# Install Zod
-pnpm i zod
+These tools together ensure a professional and modern approach to form creation.
 
-# Install React Hook Form resolvers
-pnpm i @hookform/resolvers
+---
+
+## Installation and Setup
+
+### Prerequisites
+
+- Ensure you have **pnpm** installed.
+
+### Steps
+
+1. Create the project using Vite:
+
+   ```bash
+   pnpm create vite@latest
+   ```
+
+2. Navigate to your project folder and install dependencies:
+
+   ```bash
+   pnpm install
+   ```
+
+### TailwindCSS Setup
+
+To incorporate TailwindCSS into the project, refer to the [official TailwindCSS installation documentation](https://tailwindcss.com/docs/installation) for detailed steps.
+
+---
+
+## Tools & Configuration
+
+### Vite Configuration
+
+```javascript
+import { defineConfig } from 'vite'
+import react from '@vitejs/plugin-react-swc'
+import tailwindcss from '@tailwindcss/vite'
+
+export default defineConfig({
+  plugins: [react(), tailwindcss()],
+})
 ```
 
-Or
+This configuration integrates Vite with React and TailwindCSS, ensuring a seamless development experience.
 
-```bash
-pnpm add react-hook-form zod @hookform/resolvers
+---
+
+## Code Overview
+
+### App Component
+
+```javascript
+import { CustomForm } from './components'
+
+export default function App() {
+  return (
+    <div className=''>
+      <CustomForm />
+    </div>
+  )
+}
 ```
 
-## Example Usage
+- **Purpose**: The `App` component serves as the entry point for the application, rendering the `CustomForm` component.
 
-Below is an example of how to use this stack to handle a form with validations, including password confirmation:
+---
 
-```typescript
-// filepath: /src/components/MyForm.tsx
-import React from 'react'
-import { useForm } from 'react-hook-form'
-import { z } from 'zod'
+### CustomForm Component
+
+```javascript
 import { zodResolver } from '@hookform/resolvers/zod'
+import { SubmitHandler, useForm } from 'react-hook-form'
+import { formValues, schema } from '../models'
+import { CustomInput } from './CustomInput'
 
-// Define the validation schema with Zod
-const schema = z
-  .object({
-    name: z.string().min(1, 'Name is required'),
-    email: z.string().email('Must be a valid email'),
-    password: z.string().min(6, 'Password must be at least 6 characters'),
-    confirmPassword: z.string(),
-  })
-  .refine(data => data.password === data.confirmPassword, {
-    message: 'Passwords must match',
-    path: ['confirmPassword'], // Error will be associated with confirmPassword
-  })
-
-// Automatically infer TypeScript types from the schema
-type FormData = z.infer<typeof schema>
-
-const MyForm: React.FC = () => {
+export const CustomForm = () => {
   const {
-    register,
+    control,
     handleSubmit,
     formState: { errors },
-  } = useForm<FormData>({
+  } = useForm <
+  formValues >
+  {
     resolver: zodResolver(schema),
-  })
+    mode: 'onBlur',
+  }
 
-  const onSubmit = (data: FormData) => {
-    console.log('Submitted data:', data)
+  const onSubmit: SubmitHandler<formValues> = data => {
+    console.log({ data })
   }
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
-      <div>
-        <label>Name:</label>
-        <input {...register('name')} />
-        {errors.name && <p>{errors.name.message}</p>}
-      </div>
-      <div>
-        <label>Email:</label>
-        <input {...register('email')} />
-        {errors.email && <p>{errors.email.message}</p>}
-      </div>
-      <div>
-        <label>Password:</label>
-        <input type='password' {...register('password')} />
-        {errors.password && <p>{errors.password.message}</p>}
-      </div>
-      <div>
-        <label>Confirm Password:</label>
-        <input type='password' {...register('confirmPassword')} />
-        {errors.confirmPassword && <p>{errors.confirmPassword.message}</p>}
-      </div>
-      <button type='submit'>Submit</button>
+    <form
+      className='flex flex-col gap-3 justify-center items-center mt-4'
+      onSubmit={handleSubmit(onSubmit)}
+    >
+      <CustomInput
+        name='name'
+        type='text'
+        control={control}
+        label='Name'
+        error={errors.name}
+        placeholder='John Doe'
+      />
+      <CustomInput
+        name='email'
+        type='email'
+        control={control}
+        label='Email:'
+        error={errors.email}
+        placeholder='jdoe@mail.com'
+      />
+      <CustomInput
+        name='password'
+        type='password'
+        control={control}
+        label='Password:'
+        error={errors.password}
+        placeholder='123456'
+      />
+      <CustomInput
+        name='confirmPassword'
+        type='password'
+        control={control}
+        label='Confirm Password:'
+        error={errors.confirmPassword}
+        placeholder='123456'
+      />
+
+      <button
+        className='mt-2 p-2 rounded-2xl cursor-pointer bg-slate-700 text-slate-200'
+        type='submit'
+      >
+        submit
+      </button>
     </form>
   )
 }
-
-export default MyForm
 ```
 
-## Conclusion
+**Highlights**:
 
-Using React Hook Form, Zod, and TypeScript not only improves the developer experience but also ensures safer and more reliable forms. The addition of @hookform/resolvers allows seamless integration of Zod with React Hook Form, making validation even easier. This stack is an excellent choice for modern and professional projects.
+- `useForm`: Manages form state and validation.
+- `zodResolver`: Integrates Zod for schema-based validation.
+- `onSubmit`: Logs submitted form data to the console.
 
-Explore the code and start building robust forms today! ```
+---
+
+### Zod Schema & Validation
+
+```javascript
+import { z } from 'zod'
+
+export const schema = z
+  .object({
+    name: z.string().min(1, 'Name is required'),
+    email: z.string().email().min(1, 'Email is required'),
+    password: z.string().min(6, 'Password must be at least 6 characters'),
+    confirmPassword: z.string().min(6, 'Password must be at least 6 characters'),
+  })
+  .refine(data => data.password === data.confirmPassword, {
+    message: 'Passwords do not match',
+    path: ['confirmPassword'],
+  })
+
+export type formValues = z.infer<typeof schema>
+```
+
+- **Purpose**: Ensures required fields are filled and validates that passwords match.
+
+---
+
+### CustomInput Component
+
+```javascript
+import { Control, Controller, FieldError } from 'react-hook-form';
+import { formValues } from '../models';
+
+interface Props {
+  name: keyof formValues;
+  control: Control<formValues>;
+  label: string;
+  type?: string;
+  placeholder?: string;
+  error?: FieldError;
+}
+
+export const CustomInput = ({ name, error, control, label, type, placeholder }: Props) => {
+  return (
+    <div className='flex flex-col gap-2'>
+      <label className='text-slate-600' htmlFor={name}>
+        {label}
+      </label>
+      <Controller
+        name={name}
+        control={control}
+        render={({ field }) => (
+          <input
+            id={name}
+            type={type ?? 'text'}
+            placeholder={placeholder}
+            {...field}
+            className={`rounded-2xl p-2 border ${error && ' border-red-900 border-2'}`}
+          />
+        )}
+      />
+      {error && <p className='text-red-900'>{error?.message}</p>}
+    </div>
+  );
+};
+```
+
+**Functionality**:
+
+- Renders input fields and dynamically displays error messages.
+
+---
+
+## Advantages
+
+1. **Performance**:
+
+   - React Hook Form reduces unnecessary renders, enhancing application speed.
+   - Zod ensures efficient and precise validation.
+
+2. **Ease of Use**:
+
+   - TailwindCSS simplifies styling, allowing rapid UI development.
+   - Modular components enable reusability and scalability.
+
+3. **Reliability**:
+   - Schema-based validation guarantees data accuracy.
+
+This approach reflects industry best practices, promoting scalability and user satisfaction in form handling. Let me know if you'd like further adjustments! 🚀
