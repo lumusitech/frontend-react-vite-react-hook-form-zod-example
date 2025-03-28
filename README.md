@@ -1,251 +1,99 @@
-# Project README
+# 📝 Custom Form Project
 
-## Project Overview
-
-This project showcases the implementation of a **custom form** component using React, React Hook Form, Zod, and TailwindCSS. Forms are a fundamental aspect of web development, commonly used for user authentication, data collection, and e-commerce. The ability to create highly interactive and validated forms is essential for delivering seamless user experiences and ensuring data accuracy across various industries.
+Welcome to the **Custom Form Project**! This application showcases a dynamic React form built using `react-hook-form`, `zod`, and styled with **Tailwind CSS v4** 🌟. The project is structured efficiently for scalability and maintainability.
 
 ---
 
-## Industry Importance
+## 📂 Project Structure
 
-By leveraging tools like **React Hook Form**, **Zod**, and **TailwindCSS**, developers can create scalable and maintainable forms with improved performance. Here’s why these tools are valuable:
+```Folders
 
-- **React Hook Form**: Efficient form state management with minimal re-renders.
-- **Zod**: Schema-based validation to enforce data integrity.
-- **TailwindCSS**: Simplifies styling with utility-first classes for rapid UI development.
+├── src
+│ ├── components
+│ │ ├── CustomForm.tsx
+│ │ ├── CustomInput.tsx
+│ ├── models
+│ │ ├── index.ts
+│ ├── App.tsx
+│ ├── main.tsx
+│ └── styles
+│ ├── tailwind.config.js
+├── vite.config.ts
 
-These tools together ensure a professional and modern approach to form creation.
+```
+
+### 📁 Key Folders
+
+1. **`components`**: Contains reusable React components like `CustomForm` and `CustomInput`.
+2. **`models`**: Includes `schema` and type definitions (`formValues`).
+3. **`styles`**: Configuration for Tailwind CSS.
 
 ---
 
-## Installation and Setup
+## 🚀 Features
 
-### Prerequisites
+- **Form Validation**: Integrated with `react-hook-form` and `zod` for seamless validation.
+- **Custom Inputs**: Modular input fields with error handling.
+- **Tailwind CSS**: Styled with Tailwind CSS v4 for clean and responsive design.
+- **React-SWC**: Fast and efficient rendering powered by Vite and SWC.
 
-- Ensure you have **pnpm** installed.
+---
 
-### Steps
+## 🔧 Installation
 
-1. Create the project using Vite:
+Follow the steps below to set up the project locally:
+
+1. Clone the repository:
 
    ```bash
-   pnpm create vite@latest
+   git clone git@github.com:lumusitech/frontend-react-vite-react-hook-form-zod-example.git
    ```
 
-2. Navigate to your project folder and install dependencies:
+2. Navigate to the project directory:
+
+   ```bash
+   cd frontend-react-vite-react-hook-form-zod-example
+   ```
+
+3. Install dependencies using **pnpm**:
 
    ```bash
    pnpm install
    ```
 
-### TailwindCSS Setup
+4. Start the development server:
 
-To incorporate TailwindCSS into the project, refer to the [official TailwindCSS installation documentation](https://tailwindcss.com/docs/installation) for detailed steps.
-
----
-
-## Tools & Configuration
-
-### Vite Configuration
-
-```javascript
-import { defineConfig } from 'vite'
-import react from '@vitejs/plugin-react-swc'
-import tailwindcss from '@tailwindcss/vite'
-
-export default defineConfig({
-  plugins: [react(), tailwindcss()],
-})
-```
-
-This configuration integrates Vite with React and TailwindCSS, ensuring a seamless development experience.
+   ```bash
+   pnpm dev
+   ```
 
 ---
 
-## Code Overview
+## 🛠️ Technologies Used
 
-### App Component
-
-```javascript
-import { CustomForm } from './components'
-
-export default function App() {
-  return (
-    <div className=''>
-      <CustomForm />
-    </div>
-  )
-}
-```
-
-- **Purpose**: The `App` component serves as the entry point for the application, rendering the `CustomForm` component.
+- **Vite** 🛠️: For blazing-fast development setup.
+- **TypeScript** 📘: Type-safe coding for improved reliability.
+- **React-Hook-Form** ✋: Effortless form management.
+- **Zod** ✅: Schema validation made simple.
+- **Tailwind CSS** 🎨: Utility-first styling framework.
 
 ---
 
-### CustomForm Component
+## 🎯 How to Contribute
 
-```javascript
-import { zodResolver } from '@hookform/resolvers/zod'
-import { SubmitHandler, useForm } from 'react-hook-form'
-import { formValues, schema } from '../models'
-import { CustomInput } from './CustomInput'
+Contributions are welcome! Follow these steps to contribute:
 
-export const CustomForm = () => {
-  const {
-    control,
-    handleSubmit,
-    formState: { errors },
-  } = useForm <
-  formValues >
-  {
-    resolver: zodResolver(schema),
-    mode: 'onBlur',
-  }
-
-  const onSubmit: SubmitHandler<formValues> = data => {
-    console.log({ data })
-  }
-
-  return (
-    <form
-      className='flex flex-col gap-3 justify-center items-center mt-4'
-      onSubmit={handleSubmit(onSubmit)}
-    >
-      <CustomInput
-        name='name'
-        type='text'
-        control={control}
-        label='Name'
-        error={errors.name}
-        placeholder='John Doe'
-      />
-      <CustomInput
-        name='email'
-        type='email'
-        control={control}
-        label='Email:'
-        error={errors.email}
-        placeholder='jdoe@mail.com'
-      />
-      <CustomInput
-        name='password'
-        type='password'
-        control={control}
-        label='Password:'
-        error={errors.password}
-        placeholder='123456'
-      />
-      <CustomInput
-        name='confirmPassword'
-        type='password'
-        control={control}
-        label='Confirm Password:'
-        error={errors.confirmPassword}
-        placeholder='123456'
-      />
-
-      <button
-        className='mt-2 p-2 rounded-2xl cursor-pointer bg-slate-700 text-slate-200'
-        type='submit'
-      >
-        submit
-      </button>
-    </form>
-  )
-}
-```
-
-**Highlights**:
-
-- `useForm`: Manages form state and validation.
-- `zodResolver`: Integrates Zod for schema-based validation.
-- `onSubmit`: Logs submitted form data to the console.
+1. Fork the repository.
+2. Create a new branch (`feature/your-feature-name`).
+3. Make your changes.
+4. Submit a pull request!
 
 ---
 
-### Zod Schema & Validation
+## 📄 License
 
-```javascript
-import { z } from 'zod'
-
-export const schema = z
-  .object({
-    name: z.string().min(1, 'Name is required'),
-    email: z.string().email().min(1, 'Email is required'),
-    password: z.string().min(6, 'Password must be at least 6 characters'),
-    confirmPassword: z.string().min(6, 'Password must be at least 6 characters'),
-  })
-  .refine(data => data.password === data.confirmPassword, {
-    message: 'Passwords do not match',
-    path: ['confirmPassword'],
-  })
-
-export type formValues = z.infer<typeof schema>
-```
-
-- **Purpose**: Ensures required fields are filled and validates that passwords match.
+This project is licensed under the MIT License. Feel free to use and modify.
 
 ---
 
-### CustomInput Component
-
-```javascript
-import { Control, Controller, FieldError } from 'react-hook-form';
-import { formValues } from '../models';
-
-interface Props {
-  name: keyof formValues;
-  control: Control<formValues>;
-  label: string;
-  type?: string;
-  placeholder?: string;
-  error?: FieldError;
-}
-
-export const CustomInput = ({ name, error, control, label, type, placeholder }: Props) => {
-  return (
-    <div className='flex flex-col gap-2'>
-      <label className='text-slate-600' htmlFor={name}>
-        {label}
-      </label>
-      <Controller
-        name={name}
-        control={control}
-        render={({ field }) => (
-          <input
-            id={name}
-            type={type ?? 'text'}
-            placeholder={placeholder}
-            {...field}
-            className={`rounded-2xl p-2 border ${error && ' border-red-900 border-2'}`}
-          />
-        )}
-      />
-      {error && <p className='text-red-900'>{error?.message}</p>}
-    </div>
-  );
-};
-```
-
-**Functionality**:
-
-- Renders input fields and dynamically displays error messages.
-
----
-
-## Advantages
-
-1. **Performance**:
-
-   - React Hook Form reduces unnecessary renders, enhancing application speed.
-   - Zod ensures efficient and precise validation.
-
-2. **Ease of Use**:
-
-   - TailwindCSS simplifies styling, allowing rapid UI development.
-   - Modular components enable reusability and scalability.
-
-3. **Reliability**:
-   - Schema-based validation guarantees data accuracy.
-
-This approach reflects industry best practices, promoting scalability and user satisfaction in form handling. Let me know if you'd like further adjustments! 🚀
+Have questions or suggestions? Feel free to open an issue! 😊
