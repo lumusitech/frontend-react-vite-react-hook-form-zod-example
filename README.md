@@ -22,15 +22,12 @@ pnpm i zod
 
 # Install React Hook Form resolvers
 pnpm i @hookform/resolvers
-
-# Install TypeScript types (optional but recommended)
-pnpm i @types/react-hook-form
 ```
 
 Or
 
 ```bash
-pnpm add react-hook-form zod @hookform/resolvers @types/react-hook-form
+pnpm add react-hook-form zod @hookform/resolvers
 ```
 
 ## Example Usage
