@@ -4,29 +4,51 @@ Welcome to the **Custom Form Project**! This application showcases a dynamic Rea
 
 ---
 
+Gracias por la imagen, me ayuda a organizar mejor la estructura del proyecto. Aquí está la parte actualizada del README que incluye la estructura completa del proyecto:
+
 ## 📂 Project Structure
 
-```Folders
-
+```folders
 ├── src
-│ ├── components
-│ │ ├── CustomForm.tsx
-│ │ ├── CustomInput.tsx
-│ ├── models
-│ │ ├── index.ts
-│ ├── App.tsx
-│ ├── main.tsx
-│ └── styles
-│ ├── tailwind.config.js
+│   ├── assets
+│   ├── components
+│   │   ├── CustomForm.tsx
+│   │   ├── CustomInput.tsx
+│   │   ├── index.ts
+│   ├── models
+│   │   ├── form.model.ts
+│   │   ├── index.ts
+│   ├── App.tsx
+│   ├── main.tsx
+│   ├── index.css
+│   ├── vite-env.d.ts
+├── public
+│   ├── index.html
+├── .gitignore
+├── eslint.config.js
+├── package.json
+├── pnpm-lock.yaml
+├── pnpm-workspace.yaml
+├── README.md
+├── tailwind.config.js
+├── tsconfig.app.json
+├── tsconfig.json
+├── tsconfig.node.json
 ├── vite.config.ts
-
 ```
 
-### 📁 Key Folders
+### 📁 Key Folders and Files
 
-1. **`components`**: Contains reusable React components like `CustomForm` and `CustomInput`.
-2. **`models`**: Includes `schema` and type definitions (`formValues`).
-3. **`styles`**: Configuration for Tailwind CSS.
+1. **`src/assets`**: Placeholder for static assets (e.g., images, fonts).
+2. **`src/components`**: Houses reusable React components.
+3. **`src/models`**: Contains TypeScript models for form validation.
+4. **`src/main.tsx` and `src/App.tsx`**: Entry points for the application.
+5. **`public/index.html`**: Defines the HTML structure of the application.
+6. **Tailwind Config**: `tailwind.config.js` for managing Tailwind CSS setup.
+7. **TypeScript Configs**: Multiple `tsconfig` files for different environments.
+8. **Project Metadata**: `package.json`, `pnpm-lock.yaml`, and `pnpm-workspace.yaml`.
+
+This structure ensures the project is well-organized for development and scalability. Let me know if you need further adjustments! 🚀
 
 ---
 
